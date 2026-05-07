@@ -1,0 +1,48 @@
+
+#include <iostream>
+#include <iomanip>
+#include <chrono>
+#include <thread>
+#include <ctime>
+#include <sstream>
+
+// Formats an integer with zero-padding to width w
+std::string pad(int n, int w = 2) {
+    std::ostringstream oss;
+    oss << std::setw(w) << std::setfill('0') << n;
+    return oss.str();
+}
+
+int main() {
+    int iterations = 0;
+
+    // Infinite loop — runs until Ctrl+C
+    while (true) {
+
+        // Get current time via chrono + ctime
+        auto now   = std::chrono::system_clock::now();
+        std::time_t t = std::chrono::system_clock::to_time_t(now);
+        std::tm* lt = localtime(&t);
+
+        int hh = lt->tm_hour;
+        int mm = lt->tm_min;
+        int ss = lt->tm_sec;
+
+        // \r moves cursor to line start (overwrites in-place)
+        std::cout << "\r  "
+                  << pad(hh) << ":"
+                  << pad(mm) << ":"
+                  << pad(ss)
+                  << "   [iter: "
+                  << iterations++
+                  << "]"
+                  << std::flush;
+
+        // Delay — equivalent to sleep(1) in C
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(1000)
+        );
+    }
+
+    return 0; // never reached
+}
