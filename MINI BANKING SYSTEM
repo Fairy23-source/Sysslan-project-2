@@ -1,0 +1,104 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Account
+{
+    int accNo;
+    string name;
+    float balance;
+};
+
+int main()
+{
+    int n;
+
+    cout << "Enter number of accounts: ";
+    cin >> n;
+
+    Account acc[n];
+
+    // Create accounts
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\nEnter Account Number: ";
+        cin >> acc[i].accNo;
+
+        cout << "Enter Account Holder Name: ";
+        cin >> acc[i].name;
+
+        cout << "Enter Initial Balance: ";
+        cin >> acc[i].balance;
+    }
+
+    int searchAcc;
+    cout << "\nEnter Account Number to access: ";
+    cin >> searchAcc;
+
+    int index = -1;
+
+    // Search account
+    for (int i = 0; i < n; i++)
+    {
+        if (acc[i].accNo == searchAcc)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1)
+    {
+        cout << "Account not found!";
+    }
+    else
+    {
+        int choice;
+        float amount;
+
+        cout << "\n1. Deposit";
+        cout << "\n2. Withdraw";
+        cout << "\n3. Check Balance";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+            case 1:
+                cout << "Enter amount to deposit: ";
+                cin >> amount;
+
+                acc[index].balance += amount;
+
+                cout << "Deposit Successful!";
+                cout << "\nUpdated Balance: " << acc[index].balance;
+                break;
+
+            case 2:
+                cout << "Enter amount to withdraw: ";
+                cin >> amount;
+
+                if (amount <= acc[index].balance)
+                {
+                    acc[index].balance -= amount;
+
+                    cout << "Withdrawal Successful!";
+                    cout << "\nRemaining Balance: " << acc[index].balance;
+                }
+                else
+                {
+                    cout << "Insufficient Balance!";
+                }
+                break;
+
+            case 3:
+                cout << "Current Balance: " << acc[index].balance;
+                break;
+
+            default:
+                cout << "Invalid Choice!";
+        }
+    }
+
+    return 0;
+}
