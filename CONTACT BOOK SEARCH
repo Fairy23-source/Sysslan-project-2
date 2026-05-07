@@ -1,0 +1,56 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Contact
+{
+    string name;
+    string phone;
+};
+
+int main()
+{
+    int n;
+
+    cout << "Enter number of contacts: ";
+    cin >> n;
+
+    Contact contacts[n];
+
+    // Input contacts
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\nEnter Name: ";
+        cin >> contacts[i].name;
+
+        cout << "Enter Phone Number: ";
+        cin >> contacts[i].phone;
+    }
+
+    // Search contact
+    string searchName;
+    cout << "\nEnter name to search: ";
+    cin >> searchName;
+
+    bool found = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (contacts[i].name == searchName)
+        {
+            cout << "\nContact Found!" << endl;
+            cout << "Name: " << contacts[i].name << endl;
+            cout << "Phone: " << contacts[i].phone << endl;
+
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "\nContact not found.";
+    }
+
+    return 0;
+}
